@@ -273,7 +273,7 @@ void cs1010_print_double(double d)
  */
 void cs1010_print_long(long d)
 {
-  printf("%ld\n", d);
+  printf("%ld", d);
 }
 
 /**

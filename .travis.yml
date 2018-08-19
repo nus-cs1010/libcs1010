@@ -7,6 +7,18 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - sourceline: "deb http://apt.llvm.org/precise/ llvm-toolchain-precise-3.4 main"
+            - key_url: "http://apt.llvm.org/llvm-snapshot.gpg.key"
+          packages:
+            - clang-3.4
+      env:
+        - MATRIX_EVAL="CC=clang-3.4" # For clang 3.4
+
+    # works on Precise and Trusty
+    - addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.5
           packages:
             - clang-3.5

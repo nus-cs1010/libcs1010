@@ -76,7 +76,7 @@ matrix:
         - MATRIX_EVAL="CC=clang-6.0"
 
 before_install:
-    - eval "${MATRIX_EVAL}"
+  - eval "${MATRIX_EVAL}"
 
 script:
   - make

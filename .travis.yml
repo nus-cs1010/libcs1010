@@ -111,5 +111,8 @@ matrix:
 before_install:
   - eval "${MATRIX_EVAL}"
 
+before_script:
+  - ${CC} --version
+
 script:
   - make

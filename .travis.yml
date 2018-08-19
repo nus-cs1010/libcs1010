@@ -78,5 +78,9 @@ matrix:
 before_install:
   - eval "${MATRIX_EVAL}"
 
+before_script:
+  # Echo clang version for confirming
+  - clang --version
+
 script:
   - make

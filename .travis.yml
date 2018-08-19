@@ -7,6 +7,17 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.5
+          packages:
+            - clang-3.5
+      env:
+        - MATRIX_EVAL="CC=clang-3.5"
+
+    # works on Precise and Trusty
+    - addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.6
           packages:
             - clang-3.6

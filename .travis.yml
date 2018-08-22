@@ -1,3 +1,4 @@
+sudo: required
 language: c
 os: linux
 matrix:
@@ -110,9 +111,10 @@ matrix:
 
 before_install:
   - eval "${MATRIX_EVAL}"
+  - sudo ln -s "`which ${CC}`" /usr/bin/clang
 
 before_script:
-  - ${CC} --version
+  - clang --version
 
 script:
   - make

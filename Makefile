@@ -1,4 +1,4 @@
-CC?=clang
+CC=clang
 AR=ar
 CFLAGS=-c -Iinclude
 LIB=lib/libcs1010.a

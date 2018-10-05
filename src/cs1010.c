@@ -62,7 +62,7 @@ char* cs1010_read_word()
     ret = temp;
     memcpy(ret + total_len, buf, len); // concat the string
     total_len += len;
-  } while (len == BUF_SIZE);
+  } while (len == BUF_SIZE && buf[len-1] != 0);
   return ret;
 }
 

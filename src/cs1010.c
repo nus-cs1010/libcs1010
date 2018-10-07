@@ -10,14 +10,18 @@
 
 #define BUF_SIZE 32
 static
-int fill_buffer(char *buf, int len) {
+int skip_space() {
   int c;
   do {
     c = fgetc(stdin);
   } while (isspace(c) && c != EOF);
+  return c;
+}
 
-  buf[0] = c;
-  int i = 1;
+static
+int fill_buffer(char *buf, int len) {
+  int c;
+  int i = 0;
   while (1) {
     c = fgetc(stdin);
     if (c == EOF || isspace(c)) {
@@ -48,9 +52,17 @@ int fill_buffer(char *buf, int len) {
 char* cs1010_read_word()
 {
   char buf[BUF_SIZE];
-  char *ret = NULL;
-  size_t total_len = 0;
+  char *ret = malloc(1);
+  size_t total_len = 1;
   int len;
+
+  int c = skip_space();
+  if (c == EOF) {
+    free(ret);
+    printf("EOF encountered.  return NULL\n");
+    return NULL;
+  }
+  *ret = c;
 
   do {
     len = fill_buffer(buf, BUF_SIZE);
@@ -65,7 +77,6 @@ char* cs1010_read_word()
   } while (len == BUF_SIZE && buf[len-1] != 0);
   return ret;
 }
-
 
 /**
  * @brief Read and return a long int from standard input.

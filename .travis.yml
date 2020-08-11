@@ -1,19 +1,5 @@
-sudo: required
-language: c
-os: linux
-  name: "Xenial - clang 6"
-  dist: xenial
-  env: [USE_CC='/usr/bin/clang-6.0', USE_CXX='/usr/bin/clang++-6.0']
-  addons:
-    apt:
-      packages: ['clang-6.0', 'cmake']
-      sources: ['ubuntu-toolchain-r-test']
-
-before_install:
-  - sudo ln -s "`which ${CC}`" /usr/bin/clang
-
-before_script:
-  - clang --version
-
+dist: xenial
+compiler: clang
+install: make
 script:
   - make

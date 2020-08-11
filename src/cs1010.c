@@ -329,3 +329,13 @@ void cs1010_println_string(char *s)
 {
   printf("%s\n", s);
 }
+
+/**
+ * @brief Clear the screen.
+ *
+ * @return None
+ */
+void cs1010_clear_screen()
+{
+  cs1010_print_string("[2J[;H");
+}

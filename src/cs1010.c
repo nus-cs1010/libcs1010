@@ -337,5 +337,5 @@ void cs1010_println_string(char *s)
  */
 void cs1010_clear_screen()
 {
-  cs1010_print_string("[2J[;H");
+  printf("[2J[;H");
 }

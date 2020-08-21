@@ -7,10 +7,10 @@
 #include <string.h>
 #include <float.h>
 
-long cs1010_read_long();
-double cs1010_read_double();
-char* cs1010_read_line();
-char* cs1010_read_word();
+long cs1010_read_long(void);
+double cs1010_read_double(void);
+char* cs1010_read_line(void);
+char* cs1010_read_word(void);
 
 long* cs1010_read_long_array(int how_many);
 double* cs1010_read_double_array(int how_many);

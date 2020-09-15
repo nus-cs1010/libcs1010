@@ -188,7 +188,7 @@ double cs1010_read_double()
  * for freeing the array.  Return NULL if an error occured.
  */
 
-long* cs1010_read_long_array(int how_many)
+long* cs1010_read_long_array(long how_many)
 {
   long *buffer = calloc(how_many, sizeof(long));
   if (buffer == NULL) {
@@ -209,7 +209,7 @@ long* cs1010_read_long_array(int how_many)
  * @return The array read if successful.  The caller is responsible
  * for freeing the array.  Return NULL if an error occured.
  */
-double* cs1010_read_double_array(int how_many)
+double* cs1010_read_double_array(long how_many)
 {
   double *buffer = calloc(how_many, sizeof(double));
   if (buffer == NULL) {
@@ -231,7 +231,7 @@ double* cs1010_read_double_array(int how_many)
  * for freeing the array and each string in the array.  Return NULL
  * if an error occured.
  */
-char** cs1010_read_line_array(int how_many)
+char** cs1010_read_line_array(long how_many)
 {
   char **buffer = calloc(how_many, sizeof(char*));
   if (buffer == NULL) {
@@ -253,7 +253,7 @@ char** cs1010_read_line_array(int how_many)
  * responsible for freeing the array and each string in
  * the array.  Return NULL if an error occured.
  */
-char** cs1010_read_word_array(int how_many)
+char** cs1010_read_word_array(long how_many)
 {
   char **buffer = calloc(how_many, sizeof(char*));
   if (buffer == NULL) {

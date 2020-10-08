@@ -19,16 +19,16 @@ int skip_space() {
 }
 
 static
-int fill_buffer(char *buf, int len) {
+size_t fill_buffer(char *buf, size_t len) {
   int c;
-  int i = 0;
+  size_t i = 0;
   while (1) {
     c = fgetc(stdin);
     if (c == EOF || isspace(c)) {
       buf[i] = 0;
       return i + 1;
     }
-    buf[i] = c;
+    buf[i] = (char)c;
     i = i + 1;
 
     if (i == len) {
@@ -53,8 +53,11 @@ char* cs1010_read_word()
 {
   char buf[BUF_SIZE];
   char *ret = malloc(1);
+  if (ret == NULL) {
+    return NULL;
+  }
   size_t total_len = 1;
-  int len;
+  size_t len;
 
   int c = skip_space();
   if (c == EOF) {
@@ -62,17 +65,17 @@ char* cs1010_read_word()
     printf("EOF encountered.  return NULL\n");
     return NULL;
   }
-  *ret = c;
+  *ret = (char)c;
 
   do {
     len = fill_buffer(buf, BUF_SIZE);
-    char *temp = realloc(ret, total_len + len + 1);
+    char *temp = realloc(ret, (size_t)total_len + len + 1);
     if (temp == NULL) {
       free(ret);
       return NULL;
     }
     ret = temp;
-    memcpy(ret + total_len, buf, len); // concat the string
+    memcpy(ret + total_len, buf, (size_t)len); // concat the string
     total_len += len;
   } while (len == BUF_SIZE && buf[len-1] != 0);
   return ret;
@@ -190,7 +193,7 @@ double cs1010_read_double()
 
 long* cs1010_read_long_array(long how_many)
 {
-  long *buffer = calloc(how_many, sizeof(long));
+  long *buffer = calloc((size_t)how_many, sizeof(long));
   if (buffer == NULL) {
     return NULL;
   }
@@ -211,7 +214,7 @@ long* cs1010_read_long_array(long how_many)
  */
 double* cs1010_read_double_array(long how_many)
 {
-  double *buffer = calloc(how_many, sizeof(double));
+  double *buffer = calloc((size_t)how_many, sizeof(double));
   if (buffer == NULL) {
     return NULL;
   }
@@ -233,7 +236,7 @@ double* cs1010_read_double_array(long how_many)
  */
 char** cs1010_read_line_array(long how_many)
 {
-  char **buffer = calloc(how_many, sizeof(char*));
+  char **buffer = calloc((size_t)how_many, sizeof(char*));
   if (buffer == NULL) {
     return NULL;
   }
@@ -255,7 +258,7 @@ char** cs1010_read_line_array(long how_many)
  */
 char** cs1010_read_word_array(long how_many)
 {
-  char **buffer = calloc(how_many, sizeof(char*));
+  char **buffer = calloc((size_t)how_many, sizeof(char*));
   if (buffer == NULL) {
     return NULL;
   }
@@ -269,8 +272,6 @@ char** cs1010_read_word_array(long how_many)
 
 /**
  * @brief Print a double to standard output with format %.4f.
- *
- * @return None
  */
 void cs1010_print_double(double d)
 {
@@ -279,8 +280,6 @@ void cs1010_print_double(double d)
 
 /**
  * @brief Print a long to standard output with format %.4f.
- *
- * @return None
  */
 void cs1010_print_long(long d)
 {
@@ -290,8 +289,6 @@ void cs1010_print_long(long d)
 /**
  * @brief Print a double to standard output with format %.4f,
  * followed by a newline.
- *
- * @return None
  */
 void cs1010_println_double(double d)
 {
@@ -301,8 +298,6 @@ void cs1010_println_double(double d)
 
 /**
  * @brief Print a long to standard output with format %.4f, followed by a newline.
- *
- * @return None
  */
 void cs1010_println_long(long d)
 {
@@ -312,8 +307,6 @@ void cs1010_println_long(long d)
 
 /**
  * @brief Print a string to standard output.
- *
- * @return None
  */
 void cs1010_print_string(char *s)
 {
@@ -322,8 +315,6 @@ void cs1010_print_string(char *s)
 
 /**
  * @brief Print a string to standard output, followed by a newline.
- *
- * @return None
  */
 void cs1010_println_string(char *s)
 {
@@ -332,8 +323,6 @@ void cs1010_println_string(char *s)
 
 /**
  * @brief Clear the screen.
- *
- * @return None
  */
 void cs1010_clear_screen()
 {

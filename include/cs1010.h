@@ -25,6 +25,6 @@ void cs1010_print_double(double d);
 void cs1010_print_long(long d);
 void cs1010_print_string(char *s);
 
-void cs1010_clear_screen();
+void cs1010_clear_screen(void);
 
 #endif 

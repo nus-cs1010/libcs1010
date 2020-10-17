@@ -243,6 +243,13 @@ char** cs1010_read_line_array(long how_many)
 
   for (int i = 0; i < how_many; i = i + 1) {
     buffer[i] = cs1010_read_line();
+    if (buffer[i] == NULL) {
+      for (int j = 0; j < i; j = j + 1) {
+        free(buffer[j]);
+      }
+      free(buffer);
+      return NULL;
+    }
   }
 
   return buffer;
@@ -267,7 +274,7 @@ char** cs1010_read_word_array(long how_many)
     buffer[i] = cs1010_read_word();
     if (buffer[i] == NULL) {
       for (int j = 0; j < i; j = j + 1) {
-        free(buffer[i]);
+        free(buffer[j]);
       }
       free(buffer);
       return NULL;

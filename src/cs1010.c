@@ -180,6 +180,7 @@ double cs1010_read_double()
     fprintf(stderr, "cs1010_read_double: reach the end without null/newline. '%s' remains\n", buff);
     return DBL_MAX;
   }
+  free(buff);
   return number;
 }
 

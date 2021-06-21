@@ -19,4 +19,7 @@ clean:
 
 test:
 	$(CC) -o 1010test src/test.c -Iinclude -Llib -lcs1010
+
+.PHONY: install clean test
+
 # vim:set noexpandtab

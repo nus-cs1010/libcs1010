@@ -18,7 +18,8 @@ clean:
 	rm -f $(LIB) src/cs1010.o
 
 test:
-	$(CC) -o 1010test src/test.c -Iinclude -Llib -lcs1010
+	$(CC) -o test/1010test src/test.c -Iinclude -Llib -lcs1010
+	! { test/1010test < test/input 2>&1 | grep "test failed"; } || { echo "One or more test(s) failed"; false; }
 
 .PHONY: install clean test
 

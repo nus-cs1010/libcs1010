@@ -19,11 +19,11 @@ char** cs1010_read_word_array(long how_many);
 
 void cs1010_println_double(double d);
 void cs1010_println_long(long d);
-void cs1010_println_string(char *s);
+void cs1010_println_string(const char *s);
 
 void cs1010_print_double(double d);
 void cs1010_print_long(long d);
-void cs1010_print_string(char *s);
+void cs1010_print_string(const char *s);
 
 void cs1010_clear_screen(void);
 

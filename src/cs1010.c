@@ -323,7 +323,7 @@ void cs1010_println_long(long d)
 /**
  * @brief Print a string to standard output.
  */
-void cs1010_print_string(char *s)
+void cs1010_print_string(const char *s)
 {
   printf("%s", s);
 }
@@ -331,7 +331,7 @@ void cs1010_print_string(char *s)
 /**
  * @brief Print a string to standard output, followed by a newline.
  */
-void cs1010_println_string(char *s)
+void cs1010_println_string(const char *s)
 {
   printf("%s\n", s);
 }

@@ -169,14 +169,17 @@ double cs1010_read_double()
   number = strtod(buff, &end_ptr);
 
   if (ERANGE == errno) {
+    free(buff);
     fprintf(stderr, "cs1010_read_double: number '%s' out of range\n", buff);
     return DBL_MAX;
   }
   if (end_ptr == buff) {
+    free(buff);
     fprintf(stderr, "cs1010_read_double: '%s' is not a valid numeric input\n", buff);
     return DBL_MAX;
   }
   if ('\n' != *end_ptr && '\0' != *end_ptr) {
+    free(buff);
     fprintf(stderr, "cs1010_read_double: reach the end without null/newline. '%s' remains\n", buff);
     return DBL_MAX;
   }
@@ -192,14 +195,14 @@ double cs1010_read_double()
  * for freeing the array.  Return NULL if an error occured.
  */
 
-long* cs1010_read_long_array(long how_many)
+long* cs1010_read_long_array(size_t how_many)
 {
-  long *buffer = calloc((size_t)how_many, sizeof(long));
+  long *buffer = calloc(how_many, sizeof(long));
   if (buffer == NULL) {
     return NULL;
   }
 
-  for (int i = 0; i < how_many; i = i + 1) {
+  for (size_t i = 0; i < how_many; i = i + 1) {
     buffer[i] = cs1010_read_long();
   }
 
@@ -213,14 +216,14 @@ long* cs1010_read_long_array(long how_many)
  * @return The array read if successful.  The caller is responsible
  * for freeing the array.  Return NULL if an error occured.
  */
-double* cs1010_read_double_array(long how_many)
+double* cs1010_read_double_array(size_t how_many)
 {
-  double *buffer = calloc((size_t)how_many, sizeof(double));
+  double *buffer = calloc(how_many, sizeof(double));
   if (buffer == NULL) {
     return NULL;
   }
 
-  for (int i = 0; i < how_many; i = i + 1) {
+  for (size_t i = 0; i < how_many; i = i + 1) {
     buffer[i] = cs1010_read_double();
   }
 
@@ -235,17 +238,17 @@ double* cs1010_read_double_array(long how_many)
  * for freeing the array and each string in the array.  Return NULL
  * if an error occured.
  */
-char** cs1010_read_line_array(long how_many)
+char** cs1010_read_line_array(size_t how_many)
 {
-  char **buffer = calloc((size_t)how_many, sizeof(char*));
+  char **buffer = calloc(how_many, sizeof(char*));
   if (buffer == NULL) {
     return NULL;
   }
 
-  for (int i = 0; i < how_many; i = i + 1) {
+  for (size_t i = 0; i < how_many; i = i + 1) {
     buffer[i] = cs1010_read_line();
     if (buffer[i] == NULL) {
-      for (int j = 0; j < i; j = j + 1) {
+      for (size_t j = 0; j < i; j = j + 1) {
         free(buffer[j]);
       }
       free(buffer);
@@ -264,17 +267,17 @@ char** cs1010_read_line_array(long how_many)
  * responsible for freeing the array and each string in
  * the array.  Return NULL if an error occured.
  */
-char** cs1010_read_word_array(long how_many)
+char** cs1010_read_word_array(size_t how_many)
 {
-  char **buffer = calloc((size_t)how_many, sizeof(char*));
+  char **buffer = calloc(how_many, sizeof(char*));
   if (buffer == NULL) {
     return NULL;
   }
 
-  for (int i = 0; i < how_many; i = i + 1) {
+  for (size_t i = 0; i < how_many; i = i + 1) {
     buffer[i] = cs1010_read_word();
     if (buffer[i] == NULL) {
-      for (int j = 0; j < i; j = j + 1) {
+      for (size_t j = 0; j < i; j = j + 1) {
         free(buffer[j]);
       }
       free(buffer);
@@ -285,6 +288,20 @@ char** cs1010_read_word_array(long how_many)
   return buffer;
 }
 
+/**
+ * @brief Read a size_t value from the standard input.  
+ * Reporting an error and return 0 instead of the value 
+ * is less than 0..
+ */
+size_t cs1010_read_size_t() {
+  long x = cs1010_read_long();
+  if (x < 0) {
+    fprintf(stderr, "cs1010_read_size_t: Invalid size %ld.  Returning 0.", x);
+    return 0;
+  } 
+  return (size_t) x;
+}
+  
 /**
  * @brief Print a double to standard output with format %.4f.
  */
@@ -334,6 +351,22 @@ void cs1010_print_string(char *s)
 void cs1010_println_string(char *s)
 {
   printf("%s\n", s);
+}
+
+/**
+ * @brief Print a pointer to standard output.
+ */
+void cs1010_print_pointer(void *ptr)
+{
+  cs1010_print_long((long)ptr);
+}
+
+/**
+ * @brief Print a pointer to standard output, followed by a newline.
+ */
+void cs1010_println_pointer(void *ptr)
+{
+  cs1010_println_long((long)ptr);
 }
 
 /**

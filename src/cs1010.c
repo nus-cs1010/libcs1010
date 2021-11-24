@@ -294,12 +294,41 @@ char** cs1010_read_word_array(size_t how_many)
  * is less than 0..
  */
 size_t cs1010_read_size_t() {
-  long x = cs1010_read_long();
-  if (x < 0) {
-    fprintf(stderr, "cs1010_read_size_t: Invalid size %ld.  Returning 0.", x);
-    return 0;
-  } 
-  return (size_t) x;
+  char *buff;
+  char *end_ptr;
+  unsigned long number;
+
+  buff = cs1010_read_word();
+  if (buff == NULL) {
+    fprintf(stderr, "cs1010_read_size_t: EOF or read error\n");
+    return SIZE_MAX;
+  }
+  errno = 0;
+
+  number = strtoul(buff, &end_ptr, 10);
+
+  if (ERANGE == errno) {
+    fprintf(stderr, "cs1010_read_size_t: number '%s' out of range of unsigned long\n", buff);
+    free(buff);
+    return SIZE_MAX;
+  }
+  if (end_ptr == buff) {
+    fprintf(stderr, "cs1010_read_size_t: '%s' is not a valid numeric input\n", buff);
+    free(buff);
+    return SIZE_MAX;
+  }
+  if ('\n' != *end_ptr && '\0' != *end_ptr) {
+    fprintf(stderr, "cs1010_read_size_t: reach the end without null/newline. '%s' remains\n", end_ptr);
+    free(buff);
+    return SIZE_MAX;
+  }
+  if (number > SIZE_MAX) {
+    fprintf(stderr, "cs1010_read_size_t: number '%s' out of range of size_t\n", buff);
+    free(buff);
+    return SIZE_MAX;
+  }
+  free(buff);
+  return number;
 }
   
 /**
@@ -367,6 +396,22 @@ void cs1010_print_pointer(void *ptr)
 void cs1010_println_pointer(void *ptr)
 {
   cs1010_println_long((long)ptr);
+}
+
+/**
+ * @brief Print a size_t to standard output with format %zu.
+ */
+void cs1010_print_size_t(size_t d)
+{
+  printf("%zu", d);
+}
+
+/**
+ * @brief Print a size_t to standard output with format %zu.
+ */
+void cs1010_println_size_t(size_t d)
+{
+  printf("%zu\n", d);
 }
 
 /**

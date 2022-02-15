@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "cs1010.h"
 
 #define BUF_SIZE 32
 static

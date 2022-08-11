@@ -69,13 +69,13 @@ char* cs1010_read_word()
 
   do {
     len = fill_buffer(buf, BUF_SIZE);
-    char *temp = realloc(ret, (size_t)total_len + len + 1);
+    char *temp = realloc(ret, total_len + len + 1);
     if (temp == NULL) {
       free(ret);
       return NULL;
     }
     ret = temp;
-    memcpy(ret + total_len, buf, (size_t)len); // concat the string
+    memcpy(ret + total_len, buf, len); // concat the string
     total_len += len;
   } while (len == BUF_SIZE && buf[len-1] != 0);
   return ret;

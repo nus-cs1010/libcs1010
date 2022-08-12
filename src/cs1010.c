@@ -415,6 +415,30 @@ void cs1010_println_size_t(size_t d)
 }
 
 /**
+ * @brief Print a bool to standard output with format %zu.
+ */
+void cs1010_print_bool(bool b)
+{
+  if (b) {
+    printf("true");
+  } else {
+    printf("false");
+  }
+}
+
+/**
+ * @brief Print a bool to standard output with format %zu.
+ */
+void cs1010_println_bool(bool b)
+{
+  if (b) {
+    printf("true\n");
+  } else {
+    printf("false\n");
+  }
+}
+
+/**
  * @brief Clear the screen.
  */
 void cs1010_clear_screen()

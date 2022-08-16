@@ -30,6 +30,7 @@ void cs1010_print_double(double d);
 void cs1010_print_long(long d);
 void cs1010_print_string(char *s);
 void cs1010_print_pointer(void *p);
+void cs1010_print_size_t(size_t d);
 void cs1010_print_bool(bool d);
 
 void cs1010_clear_screen(void);
